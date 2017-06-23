@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bg{
+            width: 330px;
+            height: 330px;
+            background: url("images/bg2.png") no-repeat;
+            background-size: cover;
+            float: left;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div id="main" style="width: 330px;height:280px;"></div>
+    </div>
+    <div class="bg">
+        <div id="main2" style="width: 140px;height:280px;"></div>
+    </div>
+    <div class="bg">
+        <div id="main3" style="width: 330px;height:280px;"></div>
+    </div>
+    <div class="bg">
+        <div id="main4" style="width: 150px;height:150px;margin-left: 100px;margin-top: 100px;"></div>
+    </div>
+    <script src="plugin/jquery/jquery-3.1.1.js"></script>
+    <script src="plugin/echarts/echarts.js"></script>
+    <script src="plugin/echarts/echarts-liquidfill.js"></script>
+    <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            color:['#5b84b9'],
+            title: {
+                text: ''
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            grid:{
+                left:10,
+                right:10
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color:'#293954'
+                    }
+                },
+
+                splitLine: {
+                    show:false
+                },
+                axisLabel:{
+                    interval:4,
+                    textStyle:{
+                        color:'#748cb0',
+                        fontSize:12
+                    }
+                },
+                data:function () {
+                    var list = [];
+                    var year=new Date().getFullYear();
+                    var month = new Date().getMonth()+1;
+                    var days=0;
+                    if(month===1 || month===3 ||month===5 ||month===7||month===8||month===10||month===12){
+                        days=31;
+                    }else if(month===2){
+                        if ((year % 4 === 0)&& (year % 100 !== 0 || year % 400 === 0)){
+                            days=29;
+                        }else{
+                            days=28;
+                        }
+                    }else{
+                        days=30;
+                    }
+                    for(var i=0;i<days;i++){
+                        list.push(i+1+'日');
+                    }
+                    return list;
+                }()
+            },
+            yAxis: {
+                show:false
+            },
+            series: [{
+                type: 'bar',
+                barWidth: 8,
+                /*barGap:'2',
+                barCategoryGap:'2',*/
+                markPoint: {
+                    symbolSize:70,
+                    label:{
+                        normal:{
+                            textStyle:{color:"#5b84b9"}
+                        }
+                    },
+                    itemStyle:{normal:{color:"#526d96"}}
+                }
+            }]
+        };
+        $.get('data.json').done(function(result){
+            var arr=result.chartData.data1;
+            var str='{label:{normal:{formatter:"'+arr[arr.length-1]+'kw"}},data: [{coord: ['+(arr.length-1)+','+arr[arr.length-1]+']}]}';
+            for(var i=0;i<arr.length;i++){
+                if(i == arr.length-1){
+                    var str2="{value:"+arr[i]+",itemStyle:{normal:{color:'#53d769'}}}";
+                    arr[i] = eval('(' + str2 + ')');
+                }
+            }
+            myChart.setOption({
+                series: [{
+                    data:arr
+                }]
+            })
+        });
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart2 = echarts.init(document.getElementById('main2'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            color:['#5b84b9'],
+            title: {
+                text: ''
+            },
+            tooltip: {},
+            legend: {
+            },
+            grid:{
+                left:10,
+                right:10
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color:'#293954'
+                    }
+                },
+
+                splitLine: {
+                    show:false
+                },
+                axisLabel:{
+                    textStyle:{
+                        color:'#748cb0',
+                        fontSize:12
+                    }
+                },
+                data:function () {
+                    var list = [];
+                    var date=Number(new Date().getDate());
+                    var month = new Date().getMonth()+1;
+                    console.log(date-2)
+                    for(var i=date-2;i<=date;i++){
+                        list.push(month+'.'+i);
+                    }
+                    return list;
+                }()
+            },
+            yAxis: {
+                show:false
+            },
+            series: [{
+                type: 'bar',
+                barWidth:16,
+                label:{
+                    normal:{
+                        show:true,
+                        position:'top',
+                        formatter: '{c}h'
+                    }
+                },
+                markPoint: {
+                    symbolSize:70,
+                    label:{
+                        normal:{
+                            textStyle:{color:"#5b84b9"}
+                        }
+                    },
+                    itemStyle:{normal:{color:"#526d96"}}
+                }
+            }]
+        };
+        $.get('data.json').done(function(result){
+            var arr=result.chartData.data2;
+            for(var i=0;i<arr.length;i++){
+                if(i === arr.length-1){
+                    var str2="{value:"+arr[i]+",itemStyle:{normal:{color:'#53d769'}}}";
+                    arr[i] = eval('(' + str2 + ')');
+                }
+            }
+            myChart2.setOption({
+                series: [{
+                    data:arr
+
+                }]
+            })
+        });
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart2.setOption(option);
+    </script>
+    <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart3 = echarts.init(document.getElementById('main3'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            color:['#53d769'],
+            title: {
+                text: ''
+            },
+            tooltip: {},
+            legend: {
+            },
+            grid:{
+                right:10
+            },
+            xAxis: {
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color:'#293954'
+                    }
+                },
+
+                splitLine: {
+                    show:false
+                },
+                axisLabel:{
+                    textStyle:{
+                        color:'#748cb0',
+                        fontSize:12
+                    }
+                },
+                data:function () {
+                    var list = [];
+                    var minute=Number(new Date().getMinutes());
+                    var hour = new Date().getHours();
+                    list=["00:00","10:00","20:00"];
+                    return list;
+                }()
+            },
+            yAxis: {
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color:'#4c649f'
+                    }
+                }
+
+            },
+            series: [{
+                type: 'line',
+                barWidth:16,
+
+            }]
+        };
+        $.get('data.json').done(function(result){
+            var arr=result.chartData.data3;
+            myChart3.setOption({
+                series: [{
+                    data:arr
+
+                }]
+            })
+        });
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart3.setOption(option);
+    </script>
+    <script>
+        var myChart4 = echarts.init(document.getElementById('main4'));
+        var option = {
+            tooltip: {
+                show: true
+            },
+            series: [{
+                name: 'Liquid Fill',
+                type: 'liquidFill',
+                /*半径*/
+                radius:'100%',
+                /*振幅*/
+                amplitude:'5%',
+                data:[0.8],
+                /*data: [{name: 'First Data',value: 0.3}, 0.6,0.5],*/
+                itemStyle:{
+                    /*正常状态*/
+                    normal:{
+
+                        /*颜色渐变*/
+                        color: new echarts.graphic.LinearGradient(
+                            0, 0, 0, 1,
+                            [
+                                {offset: 0, color: '#53b4d4'},
+                                {offset: 0.5, color: '#53c69d'},
+                                {offset: 1, color: '#53d66c'}
+                            ]
+                        )
+                    },
+                    /*鼠标悬停状态*/
+                    emphasis:{
+
+                    }
+                },
+                backgroundStyle: {
+                    color: 'transparent'
+                },
+                outline:{
+                    borderDistance: 0,
+                    itemStyle : {
+                        borderWidth:1,
+                        borderColor:'#53b4d5'
+                    }
+                },
+                /*数值的相关设置*/
+                label:{
+                    normal:{
+                        /*position:[0,0],*/
+                        /*{a}series name，{b}data name，{c}data value*/
+                        /*formatter: '{a}\n{b}\nValue: {c}',*/
+                        textStyle:{
+                            color:'#fff',
+                            fontSize:28
+                        }
+                    }
+                }
+            }]
+        };
+        myChart4.setOption(option)
+    </script>
+</body>
+</html>

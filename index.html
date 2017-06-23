@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport"  content="width=device-width, initial-scale=1">
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <title>index</title>
+        <link rel="stylesheet" type="text/css" href="plugin/bootstrap-3.3.5/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="plugin/iconfont/iconfont.css" />
+        <link rel="stylesheet" type="text/css" href="css/base.css" />
+        <link rel="stylesheet" type="text/css" href="css/public.css" />
+        <style>
+            .main-content>.bg{
+                width: 100%;
+                height: 100%;
+                background: url("images/mainBg.png") no-repeat;
+                background-size: 100% 100%;
+                padding: 10px;
+            }
+            .main-content .inner{
+                height: 100%;
+                width: 100%;
+                display: -webkit-flex;
+                display: flex;
+            }
+            .main-content .inner .left{
+                height: 100%;
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+            }
+            .main-content .inner .right{
+                height: 100%;
+                flex: 0 1 23.89%;
+                width: 23.89%;
+                padding-left: 10px;
+            }
+            .main-content .inner .left .data{
+                height: 19%;
+            }
+            .main-content .inner .left .chart{
+                height: 53%;
+                padding: 10px 0;
+            }
+            .main-content .inner .left .state{
+                height: 28%;
+            }
+            .main-content .inner .right>div{
+                position: relative;
+            }
+            .main-content .inner .right .reduce{
+                height: 30%;
+            }
+            .main-content .inner .right .environmental{
+                padding: 10px 0;
+                height: 40%;
+
+            }
+            .main-content .inner .right .environmental .bg{
+                width: 100%;
+                height: 100%;
+                background: url("images/y7.png") no-repeat;
+                background-size: 100% 100%;
+            }
+            .main-content .inner .right .alarm{
+                height: 30%;
+                background: url("images/y9.png") no-repeat;
+                background-size: 100% 100%;
+                color: #FFFFFF;
+                border:1px solid #143563 ;
+                border-top: 0;
+                padding: 0 1px;
+            }
+
+            .main-content .title{
+                left: 0;
+                top: 2%;
+            }
+            .main-content .environmental .title{
+                top:4%;
+            }
+            .main-content .inner .right .environmental-wrap{
+                position: absolute;
+                top: 17%;
+                right: 0;
+                left: 0;
+                bottom: 10px;
+                display: flex;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                -webkit-justify-content: space-around;
+                justify-content: space-around;
+                font-size: 14px;
+
+            }
+            .main-content .inner .right .environmental-item{
+                display: -webkit-flex;
+                display: flex;
+                border-bottom: 1px solid #37465c;
+                padding: 1rem;
+            }
+            .main-content .inner .right .environmental-item:last-of-type{
+                border-bottom: 0;
+            }
+            .main-content .inner .right .environmental-inner{
+                -webkit-box-flex: 1;
+                -webkit-flex: 1;
+                -ms-flex: 1;
+                flex: 1;
+                text-align: center;
+            }
+            .main-content .inner .right .environmental-inner span{
+                display: block;
+            }
+            .main-content .inner .right .environmental-inner .em{
+                font-size: 24px;
+            }
+            .main-content .inner .right .environmental-inner .name{
+                margin-top: 1.5rem;
+            }
+            .main-content .inner .right .alarm .table th{
+                width: 25%;
+                height: 3.5rem;
+                line-height: 3.5rem;
+                font-size: 14px;
+                font-weight: normal;
+                vertical-align: middle;
+                border-bottom:1px solid #143563;
+            }
+            .main-content .inner .right .alarm .table td{
+                vertical-align: middle;
+                padding: 0;
+                font-size: 12px;
+            }
+            .chart .item{
+                height: 15%;
+                display: table;
+                margin-left: -2.5%;
+            }
+            .chart .item .item-bar{
+                width: 11.5rem;
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+                cursor: pointer;
+                color: #FFFFFF;
+                font-size: 16px;
+                border:1px solid #235597;
+                border-left: 0;
+                border-bottom: 0;
+                background: rgba(3, 14, 29, 0.2);
+                transform: skew(35deg);
+                -webkit-transform:skew(35deg) ;
+            }
+            .chart .item .item-bar:nth-of-type(1){
+                width: 13rem ;
+            }
+            .chart .item .item-bar.active{
+                background: rgba(3, 14, 29, 0.5);
+                color: #79b4ff;
+            }
+            .chart .item .item-bar>span{
+                display: inline-block;
+                transform: skew(-35deg);
+                -webkit-transform:skew(-35deg) ;
+            }
+            .main-content .inner .left .chart .bg{
+                border-left:1px solid #285fa9;
+                height: 100%;
+                padding:0;
+                overflow: hidden;
+            }
+            .main-content .inner .left .chart-wrap{
+                height: 85%;
+                border:1px solid #376aae;
+                border-left: 0;
+                border-top: 0;
+                background: rgba(3, 14, 29, 0.5);
+            }
+        </style>
+
+    </head>
+    <body>
+        <!--  头部 -->
+        <div class="wrap">
+           <div class="wrap_content">
+            <div class="wrap_left">
+                <img src="images/logo.png" height="" width="80%" alt=""  class="logo_css"/>
+            </div>
+            <div class="wrap_center">
+                <span class="contxt_top">光伏电站智能运营分析系统</span>
+            </div>
+            <div class="wrap_right">
+                <span class="js_con">admin</span>
+                <span>
+                    <a href="#" class="btn_tc color_w">退出登录</a>
+                </span>
+                <div id="data_now" class="color_w"></div>
+            </div>
+           </div>
+          </div>
+        <!--  主体 -->
+        <div class="content-wrap">
+            <!--左边菜单栏-->
+            <div class="sidebar-wrap">
+                <div class="bg">
+                    <span class="title">电站首页</span>
+                    <div class="bar-wrap">
+                        <ul class="bar-content">
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-device"></i>
+                                <span>设备监控</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-gaojing"></i>
+                                <span>告警处理</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-baobiao"></i>
+                                <span>报表管理</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-fenxi"></i>
+                                <span>智能分析</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-gongdanguanli"></i>
+                                <span>工单管理</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-jiankong"></i>
+                                <span>视频监控</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        <li  class="bar-item">
+                            <a href="javascript:;" class="bar-tit">
+                                <i class="iconfont icon-dianzhan"></i>
+                                <span>电站管理</span>
+                                <span class="iconfont icon-down"></span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="bar-list"><a>日负荷曲线分析</a></li>
+                            </ul>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="bg">
+                    <div class="inner">
+                       <div class="left">
+                           <!--功率电量数据-->
+                           <div class="data">
+                               <div class="data-item">
+                                   <img src="images/y.png" alt="" class="icon">
+                                   <div class="extra">
+                                       <span class="name">实时功率</span>
+                                       <div><span class="num">958</span>kw</div>
+                                   </div>
+                               </div>
+                               <div class="data-item">
+                                   <img src="images/y.png" alt="" class="icon">
+                                   <div class="extra">
+                                       <span class="name">日发电量</span>
+                                       <div><span class="num">958</span>kw</div>
+                                   </div>
+                               </div>
+                               <div class="data-item">
+                                   <img src="images/y2.png" alt="" class="icon">
+                                   <div class="extra">
+                                       <span class="name">累计发电量</span>
+                                       <div><span class="num">958</span>kw</div>
+                                   </div>
+                               </div>
+                               <div class="data-item">
+                                   <img src="images/y.png" alt="" class="icon">
+                                   <div class="extra">
+                                       <span class="name">运行天数</span>
+                                       <div><span class="num">100</span>天</div>
+                                   </div>
+                               </div>
+
+                           </div>
+                           <!--折线图-->
+                           <div class="chart">
+                               <div class="bg">
+                                   <div class="item">
+                                       <span class="item-bar active"><span>年发电量</span></span>
+                                       <span  class="item-bar"><span>月发电量</span></span>
+                                       <span  class="item-bar"><span>日发电量</span></span>
+                                   </div>
+                                   <div class="chart-wrap">
+                                       <div id="main3" style="width: 100%;height:100%;"></div>
+                                   </div>
+                               </div>
+                           </div>
+                           <!--进度条-->
+                           <div class="state">
+                               <div class="state-item">
+                                   <span class="title">工单管理</span>
+                                   <div class="porgress-wrap">
+                                       <div class="porgress-list">
+                                           <span class="f_14 color_b">逆变器运行天数（天）：<b class="color_g f_18">100</b></span>
+                                           <div class="progress">
+                                               <div class="progress-bar progress-bar-success active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="porgress-list">
+                                           <span class="f_14 color_b">逆变器运行天数（天）：<b class="color_r f_18">100</b></span>
+                                           <div class="progress">
+                                               <div class="progress-bar progress-bar-danger active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="state-item">
+                                   <span class="title">工单管理</span>
+                                   <div class="porgress-wrap">
+                                       <div class="porgress-list">
+                                           <span class="f_14 color_b">逆变器运行天数（天）：<b class="color_g f_18">100</b></span>
+                                           <div class="progress">
+                                               <div class="progress-bar progress-bar-danger active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="porgress-list">
+                                           <span class="f_14 color_b">逆变器运行天数（天）：<b class="color_r f_18">100</b></span>
+                                           <div class="progress">
+                                               <div class="progress-bar progress-bar-warning active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 90%;">
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="right">
+                           <!--节能减排-->
+                           <div class="reduce">
+                               <span class="title">节能减排</span>
+                               <ul>
+                                   <li class="color_b">
+                                       <i class="iconfont icon-co2"></i>
+                                       二氧化碳减排量
+                                       <span class="color_g">52,362</span>t
+                                   </li>
+                                   <li class="color_b">
+                                       <i class="iconfont icon-mei"></i>
+                                       节约标准煤
+                                       <span class="color_g">52,362</span>t
+                                   </li>
+                                   <li class="color_b">
+                                       <i class="iconfont icon-senlin"></i>
+                                       减少深林砍伐
+                                       <span class="color_g">52,362</span>t
+                                   </li>
+                               </ul>
+                           </div>
+                           <!--环境数据-->
+                           <div class="environmental">
+                               <div class="bg">
+                                   <span class="title">环境数据</span>
+                                   <div class="environmental-wrap">
+                                       <div class="environmental-item">
+                                           <div class="environmental-inner">
+                                               <span class="em color_g">良好</span>
+                                               <span class="name color_w">天气情况</span>
+                                           </div>
+                                           <div class="environmental-inner">
+                                               <span class="em color_g">良好</span>
+                                               <span class="name color_w">天气情况</span>
+                                           </div>
+                                       </div>
+                                       <div class="environmental-item">
+                                           <div class="environmental-inner">
+                                               <span class="em color_g">良好</span>
+                                               <span class="name color_w">天气情况</span>
+                                           </div>
+                                           <div class="environmental-inner">
+                                               <span class="em color_g">良好</span>
+                                               <span class="name color_w">天气情况</span>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <!--告警级别-->
+                           <div class="alarm">
+                               <table id="listtable" class="table table-striped">
+                                   <thead>
+                                        <tr>
+                                            <th>告警级别</th>
+                                            <th>告警时间</th>
+                                            <th>设备名称</th>
+                                            <th>告警名称</th>
+                                        </tr>
+                                   </thead>
+                                   <tbody>
+                                       <tr class="color_g">
+                                           <td>级别1</td>
+                                           <td>2017-4-1</td>
+                                           <td>设备1</td>
+                                           <td>普通警告</td>
+                                       </tr>
+                                       <tr class="color_b">
+                                           <td>级别1</td>
+                                           <td>2017-4-1</td>
+                                           <td>设备1</td>
+                                           <td>普通警告</td>
+                                       </tr>
+                                       <tr class="color_o">
+                                           <td>级别1</td>
+                                           <td>2017-4-1</td>
+                                           <td>设备1</td>
+                                           <td>普通警告</td>
+                                       </tr>
+                                       <tr class="color_r">
+                                           <td>级别1</td>
+                                           <td>2017-4-1</td>
+                                           <td>设备1</td>
+                                           <td>普通警告</td>
+                                       </tr>
+                                   </tbody>
+                               </table>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    <script type="text/javascript" src="plugin/jquery/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="plugin/bootstrap-3.3.5/js/bootstrap.js"></script>
+    <script type="text/javascript" src="plugin/echarts/echarts.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <script>
+
+        $(".bar-tit").click(function () {
+            $(this).next().stop()
+            $(this).parent().siblings().removeClass("active")
+            $(this).parent().toggleClass("active")
+            $(this).parent().siblings().find(".submenu").slideUp();
+            $(this).parent().siblings().removeClass("open")
+            $(this).next().slideToggle();
+            $(this).parent().toggleClass("open");
+        });
+        $(".item-bar").click(function () {
+            $(".item-bar").removeClass("active");
+            $(this).addClass("active");
+        })
+    </script>
+    <script type="text/javascript">
+
+            // 基于准备好的dom，初始化echarts实例
+            var myChart3 = echarts.init(document.getElementById('main3'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                color:['#fac31c'],
+                title: {
+                    text: ''
+                },
+                tooltip: {},
+                legend: {
+                },
+                grid:{
+                    right:'3%',
+                    left:'5%',
+                    top:'8%',
+                    bottom:'12%'
+                },
+                xAxis: {
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color:'#293954'
+                        }
+                    },
+
+                    splitLine: {
+                        show:false
+                    },
+                    axisLabel:{
+                        textStyle:{
+                            color:'#748cb0',
+                            fontSize:12
+                        }
+                    },
+                    data:function () {
+                        var list = [];
+
+                        list=["1","2","3","4"];
+                        return list;
+                    }()
+                },
+                yAxis: {
+                    splitLine: {
+                        lineStyle:{
+                            color:'#253a4d'
+                        }
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show:false
+                    },
+                    axisLabel:{
+                        textStyle:{
+                            color:'#748cb0'
+                        }
+                    }
+
+                },
+                series: [{
+                    type: 'line',
+                    symbolSize:6,
+                    lineStyle:{
+                        normal:{
+                            width:1
+                        }
+                    },
+                    markPoint: {
+                        symbol:'image://images/bg.png',
+                        label:{
+                            normal:{
+                                position:'top'
+                            }
+                        }
+
+
+                    }
+
+                }]
+            };
+            $.get('data.json').done(function(result){
+                var arr=result.chartData.data3;
+                for(var i=0;i<arr.length;i++){
+                    if(i === arr.length-1){
+                        var str2="{value:"+arr[i]+",itemStyle:{normal:{color:'#53d769'}}}";
+                        arr[i] = eval('(' + str2 + ')');
+                    }
+                }
+                myChart3.setOption({
+                    series: [{
+                        data:arr,
+
+
+                    }]
+                })
+            });
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart3.setOption(option);
+        </script>
+    </body>
+</html>
